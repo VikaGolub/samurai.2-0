@@ -1,5 +1,5 @@
 import { usersAPI } from "../api/api";
-import { Photo } from "../types/types";
+import { Photo, UserType } from "../types/types";
 import { updateObjectInArray } from "../utils/object-helpers";
 
 const FOLLOW = "FOLLOW";
@@ -10,16 +10,8 @@ const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
 
-type User = {
-  id: number;
-  name: string;
-  status: string;
-  photos: Photo;
-  followed: boolean;
-};
-
 let initialState = {
-  users: [] as Array<User>,
+  users: [] as Array<UserType>,
   pageSize: 10,
   totalUsersCount: 0,
   currentPage: 1,

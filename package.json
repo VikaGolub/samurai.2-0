@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-redux": "^7.1.22",
     "gh-pages": "^2.1.1",
     "react-test-renderer": "^16.8.6",
     "typescript": "^4.5.4"
