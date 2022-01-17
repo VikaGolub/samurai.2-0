@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import { usersAPI } from "../api/api";
 import { Photo, UserType } from "../types/types";
 import { updateObjectInArray } from "../utils/object-helpers";
@@ -22,7 +23,10 @@ let initialState = {
 
 type InitialStateType = typeof initialState;
 
-const usersReducer = (state = initialState, action: any): InitialStateType => {
+const usersReducer = (
+  state = initialState,
+  action: ActionsType
+): InitialStateType => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -64,6 +68,15 @@ const usersReducer = (state = initialState, action: any): InitialStateType => {
       return state;
   }
 };
+
+type ActionsType =
+  | FollowSuccessType
+  | UnfollowSuccessType
+  | SetUsersType
+  | SetCurrentPageType
+  | SetTotalUsersCountType
+  | ToggleIsFetchingType
+  | ToggleFollowingProgressType;
 
 type FollowSuccessType = {
   type: typeof FOLLOW;
@@ -139,7 +152,7 @@ export const toggleFollowingProgress = (
 });
 
 export const requestUsers = (page: number, pageSize: number) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch<ActionsType>) => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(page));
 
@@ -151,7 +164,7 @@ export const requestUsers = (page: number, pageSize: number) => {
 };
 
 const followUnfollowFlow = async (
-  dispatch: any,
+  dispatch: Dispatch<ActionsType>,
   userId: number,
   apiMethod: any,
   actionCreator: any
@@ -166,7 +179,7 @@ const followUnfollowFlow = async (
 };
 
 export const follow = (userId: number) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch<ActionsType>) => {
     followUnfollowFlow(
       dispatch,
       userId,
@@ -176,7 +189,7 @@ export const follow = (userId: number) => {
   };
 };
 export const unfollow = (userId: number) => {
-  return async (dispatch: any) => {
+  return async (dispatch: Dispatch<ActionsType>) => {
     followUnfollowFlow(
       dispatch,
       userId,
